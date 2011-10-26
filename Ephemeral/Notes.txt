@@ -1,0 +1,77 @@
+﻿- Ideas
+	- Quasimodal/modal support
+	- Flexible key binding (any modifiers, any key)
+	- Pluggable command system (MEF?)
+	- Enso-like UI
+	- File-watching mechanism
+	- MSI or xcopy deployment
+	- Ephemeral startup on Windows startup
+- Ensure caps lock is initially off
+- Requires .NET 3.5 - is LINQ *absolutely* necessary?
+- Need to review the experience of using this over TS sessions
+	- Caps lock not suppressed?
+	- Need to EnsureCapsLockDisabled() every time caps lock hook is triggered?
+- Launching applications
+	- Set focus to the app
+	- Bring the app to the front
+- Quasimodal + enter
+	- Even under the quasimodal setting, enter should exeute the current command
+- FileSystemWatcher
+	- Not 100% dependable
+	- Should have "update now" option
+	- Should do infrequent polling to augment FSW
+	- Process notifications quickly, send to internal buffer, ship to
+	  worker thread later for processing (don't want to overflow FSW's buffer)
+- Suggestion/execution mechanism needs to be the same
+	- Concept of CommandProvider
+	- Engine provides suggestions
+	- UI filters for formatting
+	- UI allows choice among suggestions, feeds back to execution
+	- Execution mechanism executes!
+- Theme chooser
+	- Colors (drop-down back/fore, input back/fore)
+	- Generically skinnable
+- Multi-monitor support
+	- Monitor choosing mechanism
+- Suggestion heuristic
+	- With misspelling or no results, take the last suggestion
+	- Full text searching
+	- Sub-letter matching
+	- Don't display suggestions when input text is shorter than some threshold (unless it matches command exactly)?
+		- Or, more generally, don't display suggestions when there are way too many?
+	- Ranking scheme
+		- Exact match prioritized top
+		- MRU prioritization
+		- Actual substrings prioritized higher
+			- "Foo Bar" prioritzed above "Bzaxr" when matching against "Bar"
+			- Contiguous substrings > arbitrary substrings
+				- Search for "th" should match "breathe" before "battlehawk"
+		- Closeness to beginning of word
+			- "Exit" prioritized above "The Exit" when matching against "exi"
+		- Acronym prioritization
+			- "Internet Explorer" prioritized above "wilez" when matching against "ie"
+- Optimization: memoize suggestion results as user types
+	- Remember past results of current input, use that when the user types more
+	- e.g. if the user types "i" then "e", we can reuse the "i" results when computing the "e" results
+	- Should handle backspace as well (pop off results stack)
+	- How does this play with potentially new commands being added asynchronously?
+- zsh-like operations
+	- History with up/down arrows
+	- Home/End, pgup/pgdn?
+	- Tab completion (cycle through suggestion list)
+- Pluggable plugin configuration
+	- Specified in plugin dll
+	- Custom UI for command configuration
+- Persistent user data
+	- Plugin configuration
+	- Icons
+	- Where should it be stored?
+	- Automatic sharing across machines?
+- Refactoring code
+	- Make CommandInputForm/DropDownForm pluggable (Ephemeral.UI?)
+	- Move more stuff into Ephemeral.Core
+- Web icons
+	- Do actual parsing of web pages to determine favicon/iPad file locations
+- Plugging
+	- More robust against exceptions
+	- More tracing
