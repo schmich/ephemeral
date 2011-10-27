@@ -5,12 +5,49 @@ using Ephemeral.Commands;
 
 namespace Ephemeral
 {
-    interface CommandProvider
+    interface ICommandProvider
     {
         IEnumerable<Command> GetSuggestions(string input);
     }
 
-    class PatternCommandProvider : CommandProvider
+    class CommandPriortyComparer : IComparer<Command>
+    {
+        public CommandPriortyComparer(string input)
+        {
+            _input = input;
+        }
+
+        public int Compare(Command p, Command q)
+        {
+            return GetPriority(p) - GetPriority(q);   
+        }
+
+        int GetPriority(Command c)
+        {
+            string name = c.Name;
+
+            if (StringComparer.Ordinal.Equals(name, _input))
+                return 0;
+
+            if (StringComparer.OrdinalIgnoreCase.Equals(name, _input))
+                return 10;
+
+            string acronym = new string(name.Where(s => char.IsUpper(s)).ToArray());
+
+            if (StringComparer.OrdinalIgnoreCase.Equals(acronym, _input))
+                return 200;
+            
+            int index = name.IndexOf(_input, StringComparison.OrdinalIgnoreCase);
+            if (index >= 0)
+                return 300 + index;
+
+            return int.MaxValue;
+        }
+
+        string _input;
+    }
+
+    class PatternCommandProvider : ICommandProvider
     {
         public PatternCommandProvider(CommandControllerEvents controller)
         {
@@ -30,7 +67,8 @@ namespace Ephemeral
 
         public IEnumerable<Command> GetSuggestions(string input)
         {
-            IEnumerable<Command> answer = _indexer.GetMatches(input);
+            List<Command> answer = new List<Command>(_indexer.GetMatches(input));
+            answer.Sort(new CommandPriortyComparer(input));
 
             if ((answer.Count() == 0) && (_lastAnswer.Count() == 1) && (input.Length >= _lastInput.Length))
             {
@@ -51,7 +89,7 @@ namespace Ephemeral
         IEnumerable<Command> _lastAnswer = new Command[0];
     }
 
-    class CommandControllerEvents : CommandController
+    class CommandControllerEvents : ICommandController
     {
         public void AddCommand(Command c)
         {

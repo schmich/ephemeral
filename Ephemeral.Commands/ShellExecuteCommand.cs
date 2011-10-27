@@ -13,7 +13,7 @@ namespace Ephemeral.Commands
     [Export]
     public class ShellExecuteCommandFactory : CommandFactory
     {
-        public ShellExecuteCommandFactory(CommandController controller)
+        public ShellExecuteCommandFactory(ICommandController controller)
             : base(controller)
         {
 
@@ -101,7 +101,7 @@ namespace Ephemeral.Commands
             }
         }
 
-        CommandController _controller;
+        ICommandController _controller;
         Dictionary<string, Command> _commands = new Dictionary<string, Command>(StringComparer.OrdinalIgnoreCase);
     }
 

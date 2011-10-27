@@ -5,21 +5,21 @@ using System.Text;
 
 namespace Ephemeral
 {
-    interface CommandHistory
+    interface ICommandHistory
     {
         void AddCommand(string command);
 
-        BidirectionalEnumerator<string> GetEnumerator();
+        IBidirectionalEnumerator<string> GetEnumerator();
     }
 
-    class MemoryCommandHistory : CommandHistory
+    class MemoryCommandHistory : ICommandHistory
     {
         public void AddCommand(string command)
         {
             _commandHistory.Insert(0, command);
         }
 
-        public BidirectionalEnumerator<string> GetEnumerator()
+        public IBidirectionalEnumerator<string> GetEnumerator()
         {
             return new ListBidirectionalEnumerator<string>(_commandHistory);
         }
@@ -27,12 +27,12 @@ namespace Ephemeral
         List<string> _commandHistory = new List<string>();
     }
 
-    interface BidirectionalEnumerator<T> : IEnumerator<T>
+    interface IBidirectionalEnumerator<T> : IEnumerator<T>
     {
         bool MovePrev();
     }
 
-    class ListBidirectionalEnumerator<T> : BidirectionalEnumerator<T>
+    class ListBidirectionalEnumerator<T> : IBidirectionalEnumerator<T>
     {
         public ListBidirectionalEnumerator(IList<T> list)
         {

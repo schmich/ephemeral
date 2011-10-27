@@ -16,7 +16,7 @@ namespace Ephemeral
 {
     partial class CommandInputForm : Form
     {
-        public CommandInputForm(CommandProvider commandProvider, CommandHistory history)
+        public CommandInputForm(ICommandProvider commandProvider, ICommandHistory history)
         {
             InitializeComponent();
             Width = Screen.PrimaryScreen.Bounds.Width;
@@ -276,13 +276,13 @@ namespace Ephemeral
         Brush _foreBrush;
 
         DropDownForm _dropDownForm;
-        CommandProvider _commandProvider;
+        ICommandProvider _commandProvider;
 
         MouseHook _mouseHook;
         Point _lastMousePosition;
 
-        CommandHistory _commandHistory;
-        BidirectionalEnumerator<string> _historicCommand;
+        ICommandHistory _commandHistory;
+        IBidirectionalEnumerator<string> _historicCommand;
         string _originalText = null;
     }
 }

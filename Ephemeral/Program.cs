@@ -22,12 +22,12 @@ namespace Ephemeral
 
             using (_keyboardHook = new KeyboardHook())
             {
-                EnsureCapsLockDisabled();
-
                 _capsHook = _keyboardHook.CreateKeyHook(Keys.CapsLock);
                 _capsHook.SuppressInput = true;
                 _capsHook.KeyDown += new KeyEventHandler(OnCapsKeyDown);
                 _capsHook.KeyUp += new KeyEventHandler(OnCapsKeyUp);
+
+                EnsureCapsLockDisabled();
 
                 CommandControllerEvents controller = new CommandControllerEvents();
                 _commandProvider = new PatternCommandProvider(controller);

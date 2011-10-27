@@ -13,7 +13,7 @@ namespace Ephemeral.Commands
     [Export]
     class WebSearchCommandFactory : CommandFactory
     {
-        public WebSearchCommandFactory(CommandController controller)
+        public WebSearchCommandFactory(ICommandController controller)
             : base(controller)
         {
             controller.AddCommand(new WebSearchCommand("msdn", "http://msdn.microsoft.com/", "http://social.msdn.microsoft.com/Search/en-US?query=%s"));
@@ -23,7 +23,7 @@ namespace Ephemeral.Commands
             controller.AddCommand(new WebSearchCommand("bing", "http://bing.com/", "http://www.bing.com/search?q=%s"));
             controller.AddCommand(new WebSearchCommand("AcronymFinder", "http://www.acronymfinder.com/", "http://www.acronymfinder.com/%s.html"));
             controller.AddCommand(new WebSearchCommand("Microsoft Mail", "https://mail.microsoft.com", "https://mail.microsoft.com"));
-            controller.AddCommand(new WebSearchCommand("GMail", "https://gmail.com", "https://gmail.com"));
+            controller.AddCommand(new WebSearchCommand("gmail", "https://gmail.com", "https://gmail.com"));
         }
     }
 
