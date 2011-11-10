@@ -126,13 +126,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ephemeral.Commands\Ephemeral.Commands.csproj">
-      <Project>{7A5BBC61-0294-4F4E-AE9D-5AFE647F66A8}</Project>
-      <Name>Ephemeral.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ephemeral.Core\Ephemeral.Core.csproj">
+    <ProjectReference Include="..\Ephemeral.Core\EphemeralCore.csproj">
       <Project>{5A312457-B3C0-4604-8C15-0E59F2852F57}</Project>
-      <Name>Ephemeral.Core</Name>
+      <Name>EphemeralCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

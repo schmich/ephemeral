@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ephemeral", "Ephemeral\Ephemeral.csproj", "{46784C55-9EE0-49DF-B1F3-132B17D07781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ephemeral.Core", "Ephemeral.Core\Ephemeral.Core.csproj", "{5A312457-B3C0-4604-8C15-0E59F2852F57}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ephemeral.Commands", "Ephemeral.Commands\Ephemeral.Commands.csproj", "{7A5BBC61-0294-4F4E-AE9D-5AFE647F66A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EphemeralCore", "Ephemeral.Core\EphemeralCore.csproj", "{5A312457-B3C0-4604-8C15-0E59F2852F57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{5A312457-B3C0-4604-8C15-0E59F2852F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A312457-B3C0-4604-8C15-0E59F2852F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A312457-B3C0-4604-8C15-0E59F2852F57}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A5BBC61-0294-4F4E-AE9D-5AFE647F66A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A5BBC61-0294-4F4E-AE9D-5AFE647F66A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A5BBC61-0294-4F4E-AE9D-5AFE647F66A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A5BBC61-0294-4F4E-AE9D-5AFE647F66A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
