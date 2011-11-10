@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ephemeral</RootNamespace>
     <AssemblyName>Ephemeral</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
@@ -59,6 +59,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -87,8 +88,8 @@
     <Compile Include="CommandInputForm.Designer.cs">
       <DependentUpon>CommandInputForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommandProvider.cs" />
     <Compile Include="ExitCommand.cs" />
+    <Compile Include="FadeEffect.cs" />
     <Compile Include="NotificationForm.cs">
       <SubType>Form</SubType>
     </Compile>

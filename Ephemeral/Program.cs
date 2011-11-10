@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using Ephemeral.Commands;
+using System.ComponentModel.Composition.Hosting;
 
 namespace Ephemeral
 {
@@ -29,11 +30,15 @@ namespace Ephemeral
 
                 EnsureCapsLockDisabled();
 
-                CommandManagerEvents controller = new CommandManagerEvents();
-                _commandProvider = new PatternCommandProvider(controller);
+                var thisAssembly = Assembly.GetExecutingAssembly();
+                var assemblyCatalog = new AssemblyCatalog(thisAssembly);
+                var coreCatalog = new AssemblyCatalog(typeof(ICommand).Assembly);
+                var catalog = new AggregateCatalog(assemblyCatalog, coreCatalog);
+                var container = new CompositionContainer(catalog);
 
-                string thisDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                var factories = CommandFactoryLoader.LoadFromDirectory(thisDirectory, controller);
+                // Todo: Hack: Forcing creation of command factories.
+                container.GetExportedValues<ICommandFactory>();
+                _commandProvider = container.GetExportedValue<ICommandProvider>();
 
                 NotificationForm.Show("Ephemeral");
 
@@ -78,7 +83,7 @@ namespace Ephemeral
             //}
         }
 
-        static void ExecuteCommand(Command command, string arguments)
+        static void ExecuteCommand(ICommand command, string arguments)
         {
             if (command == null)
                 return;
@@ -128,8 +133,9 @@ namespace Ephemeral
         static KeyboardHook _keyboardHook;
         static KeyHook _capsHook;
 
-        static PatternCommandProvider _commandProvider;
-        static List<Command> _commands = new List<Command>();
+        static List<ICommand> _commands = new List<ICommand>();
         static CommandInputForm _commandInputForm;
+
+        static ICommandProvider _commandProvider;
     }
 }

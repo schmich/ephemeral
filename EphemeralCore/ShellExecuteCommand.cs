@@ -7,16 +7,17 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Drawing;
+using System.ComponentModel.Composition;
 
 namespace Ephemeral.Commands
 {
-    [Export]
-    public class ShellExecuteCommandFactory : CommandFactory
+    [Export(typeof(ICommandFactory))]
+    public class ShellExecuteCommandFactory : ICommandFactory
     {
-        public ShellExecuteCommandFactory(ICommandManager controller)
-            : base(controller)
+        [ImportingConstructor]
+        public ShellExecuteCommandFactory(ICommandStore store)
         {
-            _manager = controller;
+            _store = store;
 
             AddDirectoryCommands(@"C:\dev\shortcuts");
             //AddDirectoryCommands(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
@@ -85,26 +86,26 @@ namespace Ephemeral.Commands
 
                     var command = new ShellExecuteCommand(commandName, fileName);
                     _commands[fileName] = command;
-                    _manager.AddCommand(command);
+                    _store.AddCommand(command);
                 }
             }
         }
 
         void RemoveCommandForFile(string fileName)
         {
-            Command command;
+            ICommand command;
             if (_commands.TryGetValue(fileName, out command))
             {
                 _commands.Remove(fileName);
-                _manager.RemoveCommand(command);
+                _store.RemoveCommand(command);
             }
         }
 
-        ICommandManager _manager;
-        Dictionary<string, Command> _commands = new Dictionary<string, Command>(StringComparer.OrdinalIgnoreCase);
+        ICommandStore _store;
+        Dictionary<string, ICommand> _commands = new Dictionary<string, ICommand>(StringComparer.OrdinalIgnoreCase);
     }
 
-    class ShellExecuteCommand : Command
+    class ShellExecuteCommand : ICommand
     {
         public ShellExecuteCommand(string commandName, string filePath)
         {
@@ -113,17 +114,17 @@ namespace Ephemeral.Commands
             _icon = Platform.GetFileIcon(filePath);
         }
 
-        public override string Name
+        public string Name
         {
             get { return _commandName; }
         }
 
-        public override Bitmap Icon
+        public Bitmap Icon
         {
             get { return _icon; }
         }
 
-        public override void Execute(string arguments)
+        public void Execute(string arguments)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = _filePath;

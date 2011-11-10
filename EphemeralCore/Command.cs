@@ -6,21 +6,12 @@ using System.Drawing;
 
 namespace Ephemeral.Commands
 {
-    [DebuggerDisplay("{Name,nq}")]
-    public abstract class Command
+    public interface ICommand
     {
-        public abstract string Name { get; }
+        string Name { get; }
 
-        public virtual Bitmap Icon
-        {
-            get { return null; }
-        }
+        Bitmap Icon { get; }
 
-        public abstract void Execute(string arguments);
-
-        public override string ToString()
-        {
-            return Name;
-        }
+        void Execute(string arguments);
     }
 }

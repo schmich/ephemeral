@@ -7,28 +7,28 @@ using System.Threading;
 using System.Drawing;
 using System.Net;
 using System.IO;
+using System.ComponentModel.Composition;
 
 namespace Ephemeral.Commands
 {
-    [Export]
-    class WebSearchCommandFactory : CommandFactory
+    [Export(typeof(ICommandFactory))]
+    class WebSearchCommandFactory : ICommandFactory
     {
-        public WebSearchCommandFactory(ICommandManager manager)
-            : base(manager)
+        [ImportingConstructor]
+        public WebSearchCommandFactory(ICommandStore store)
         {
-            manager.AddCommand(new WebSearchCommand("msdn", "http://msdn.microsoft.com/", "http://social.msdn.microsoft.com/Search/en-US?query=%s"));
-            manager.AddCommand(new WebSearchCommand("StackOverflow", "http://stackoverflow.com/", "http://www.google.com/#hl=en&q=%s+site%3Astackoverflow.com"));
-            manager.AddCommand(new WebSearchCommand("Wikipedia", "http://en.wikipedia.org/", "http://en.wikipedia.org/wiki/Special:Search/%s"));
-            manager.AddCommand(new WebSearchCommand("?", "http://bing.com/", "http://www.bing.com/search?q=%s"));
-            manager.AddCommand(new WebSearchCommand("bing", "http://bing.com/", "http://www.bing.com/search?q=%s"));
-            manager.AddCommand(new WebSearchCommand("AcronymFinder", "http://www.acronymfinder.com/", "http://www.acronymfinder.com/%s.html"));
-            manager.AddCommand(new WebSearchCommand("Microsoft Mail", "https://mail.microsoft.com", "https://mail.microsoft.com"));
-            manager.AddCommand(new WebSearchCommand("gmail", "https://gmail.com", "https://gmail.com"));
+            store.AddCommand(new WebSearchCommand("msdn", "http://msdn.microsoft.com/", "http://social.msdn.microsoft.com/Search/en-US?query=%s"));
+            store.AddCommand(new WebSearchCommand("StackOverflow", "http://stackoverflow.com/", "http://www.google.com/#hl=en&q=%s+site%3Astackoverflow.com"));
+            store.AddCommand(new WebSearchCommand("Wikipedia", "http://en.wikipedia.org/", "http://en.wikipedia.org/wiki/Special:Search/%s"));
+            store.AddCommand(new WebSearchCommand("?", "http://bing.com/", "http://www.bing.com/search?q=%s"));
+            store.AddCommand(new WebSearchCommand("bing", "http://bing.com/", "http://www.bing.com/search?q=%s"));
+            store.AddCommand(new WebSearchCommand("AcronymFinder", "http://www.acronymfinder.com/", "http://www.acronymfinder.com/%s.html"));
+            store.AddCommand(new WebSearchCommand("Microsoft Mail", "https://mail.microsoft.com", "https://mail.microsoft.com"));
+            store.AddCommand(new WebSearchCommand("gmail", "https://gmail.com", "https://gmail.com"));
         }
     }
 
-    [Export]
-    class WebSearchCommand : Command
+    class WebSearchCommand : ICommand
     {
         public WebSearchCommand(string searchKeyword, string defaultUri, string searchUri)
         {
@@ -61,17 +61,17 @@ namespace Ephemeral.Commands
             }
         }
 
-        public override string Name
+        public string Name
         {
             get { return _searchKeyword; }
         }
 
-        public override Bitmap Icon
+        public Bitmap Icon
         {
             get { return _icon; }
         }
 
-        public override void Execute(string arguments)
+        public void Execute(string arguments)
         {
             string uri;
             if (string.IsNullOrEmpty(arguments))

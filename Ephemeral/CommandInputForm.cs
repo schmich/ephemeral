@@ -71,7 +71,7 @@ namespace Ephemeral
             get { return _canceled; }
         }
 
-        public Command Command
+        public ICommand Command
         {
             get { return _currentCommand; }
         }
@@ -270,7 +270,7 @@ namespace Ephemeral
         }
 
         bool _canceled;
-        Command _currentCommand;
+        ICommand _currentCommand;
 
         Brush _backBrush;
         Brush _foreBrush;

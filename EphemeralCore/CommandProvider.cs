@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using Ephemeral.Commands;
+using System.ComponentModel.Composition;
 
-namespace Ephemeral
+namespace Ephemeral.Commands
 {
-    interface ICommandProvider
+    public interface ICommandProvider
     {
-        IEnumerable<Command> GetSuggestions(string input);
+        IEnumerable<ICommand> GetSuggestions(string input);
     }
 
-    class CommandPriortyComparer : IComparer<Command>
+    class CommandPriortyComparer : IComparer<ICommand>
     {
         public CommandPriortyComparer(string input)
         {
             _input = input;
         }
 
-        public int Compare(Command p, Command q)
+        public int Compare(ICommand p, ICommand q)
         {
             return GetPriority(p) - GetPriority(q);   
         }
 
-        int GetPriority(Command c)
+        int GetPriority(ICommand c)
         {
             string name = c.Name;
 
@@ -47,27 +48,23 @@ namespace Ephemeral
         string _input;
     }
 
-    class PatternCommandProvider : ICommandProvider
+    [Export(typeof(ICommandStore))]
+    [Export(typeof(ICommandProvider))]
+    public class PatternCommandProvider : ICommandStore, ICommandProvider
     {
-        public PatternCommandProvider(CommandManagerEvents manager)
+        public void AddCommand(ICommand c)
         {
-            manager.CommandAdded += new Action<Command>(OnCommandAdded);
-            manager.CommandRemoved += new Action<Command>(OnCommandRemoved);
+            _indexer.AddCommand(c);
         }
 
-        void OnCommandAdded(Command command)
+        public void RemoveCommand(ICommand c)
         {
-            _indexer.AddCommand(command);
+            _indexer.RemoveCommand(c);
         }
 
-        void OnCommandRemoved(Command command)
+        public IEnumerable<ICommand> GetSuggestions(string input)
         {
-            _indexer.RemoveCommand(command);
-        }
-
-        public IEnumerable<Command> GetSuggestions(string input)
-        {
-            List<Command> answer = new List<Command>(_indexer.GetMatches(input));
+            List<ICommand> answer = new List<ICommand>(_indexer.GetMatches(input));
             answer.Sort(new CommandPriortyComparer(input));
 
             if ((answer.Count() == 0) && (_lastAnswer.Count() == 1) && (input.Length >= _lastInput.Length))
@@ -86,40 +83,22 @@ namespace Ephemeral
         Indexer _indexer = new Indexer();
         
         string _lastInput = string.Empty;
-        IEnumerable<Command> _lastAnswer = new Command[0];
-    }
-
-    class CommandManagerEvents : ICommandManager
-    {
-        public void AddCommand(Command c)
-        {
-            if ((c != null) && (CommandAdded != null))
-                CommandAdded(c);
-        }
-
-        public void RemoveCommand(Command c)
-        {
-            if ((c != null) && (CommandRemoved != null))
-                CommandRemoved(c);
-        }
-
-        public event Action<Command> CommandAdded;
-        public event Action<Command> CommandRemoved;
+        IEnumerable<ICommand> _lastAnswer = new ICommand[0];
     }
 
     class Indexer
     {
-        public void AddCommand(Command cmd)
+        public void AddCommand(ICommand cmd)
         {
             string name = cmd.Name.ToLower();
             _lower[cmd.Name] = name;
 
             foreach (char c in name)
             {
-                HashSet<Command> letter;
+                HashSet<ICommand> letter;
                 if (!_entries.TryGetValue(c, out letter))
                 {
-                    letter = new HashSet<Command>();
+                    letter = new HashSet<ICommand>();
                     _entries[c] = letter;
                 }
 
@@ -127,13 +106,13 @@ namespace Ephemeral
             }
         }
 
-        public void RemoveCommand(Command cmd)
+        public void RemoveCommand(ICommand cmd)
         {
             string name = cmd.Name.ToLower();
 
             foreach (char c in name)
             {
-                HashSet<Command> letter;
+                HashSet<ICommand> letter;
                 if (_entries.TryGetValue(c, out letter))
                 {
                     letter.Remove(cmd);
@@ -141,28 +120,28 @@ namespace Ephemeral
             }
         }
 
-        public IEnumerable<Command> GetMatches(string search)
+        public IEnumerable<ICommand> GetMatches(string search)
         {
             if (search.Length == 0)
-                return new Command[0];
+                return new ICommand[0];
 
             search = search.ToLower();
 
             char c = search[0];
 
-            HashSet<Command> firstCandidates = new HashSet<Command>();
+            HashSet<ICommand> firstCandidates = new HashSet<ICommand>();
             if (!_entries.TryGetValue(c, out firstCandidates))
             {
-                return new Command[0];
+                return new ICommand[0];
             }
 
-            HashSet<Command> candidates = new HashSet<Command>(firstCandidates);
+            HashSet<ICommand> candidates = new HashSet<ICommand>(firstCandidates);
 
             for (int i = 1; i < search.Length; ++i)
             {
                 c = search[i];
 
-                HashSet<Command> letter;
+                HashSet<ICommand> letter;
                 if (_entries.TryGetValue(c, out letter))
                 {
                     candidates.IntersectWith(letter);
@@ -170,7 +149,7 @@ namespace Ephemeral
 
                 if (candidates.Count == 0)
                 {
-                    return new List<Command>();
+                    return new List<ICommand>();
                 }
             }
 
@@ -194,6 +173,6 @@ namespace Ephemeral
         }
 
         Dictionary<string, string> _lower = new Dictionary<string, string>();
-        Dictionary<char, HashSet<Command>> _entries = new Dictionary<char, HashSet<Command>>();
+        Dictionary<char, HashSet<ICommand>> _entries = new Dictionary<char, HashSet<ICommand>>();
     }
 }

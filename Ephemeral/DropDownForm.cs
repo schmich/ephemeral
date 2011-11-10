@@ -34,10 +34,10 @@ namespace Ephemeral
 
             SetStyle(styles, true);
 
-            _options = new Command[0];
+            _options = new ICommand[0];
         }
 
-        public IEnumerable<Command> Options
+        public IEnumerable<ICommand> Options
         {
             get { return _options; }
             set
@@ -73,7 +73,7 @@ namespace Ephemeral
 
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-            foreach (Command option in _options)
+            foreach (ICommand option in _options)
             {
                 int iconWidth = 0;
                 if (option.Icon != null)
@@ -105,7 +105,7 @@ namespace Ephemeral
             g.FillRectangle(gradient, 0, 0, width, height);
 
             int positionY = padding.Top;
-            foreach (Command option in _options)
+            foreach (ICommand option in _options)
             {
                 int iconSpace = 0;
                 if (option.Icon != null)
@@ -161,6 +161,6 @@ namespace Ephemeral
             base.OnPaint(e);
         }
 
-        IEnumerable<Command> _options;
+        IEnumerable<ICommand> _options;
     }
 }
