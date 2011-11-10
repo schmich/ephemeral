@@ -126,7 +126,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ephemeral.Core\EphemeralCore.csproj">
+    <ProjectReference Include="..\EphemeralCore\EphemeralCore.csproj">
       <Project>{5A312457-B3C0-4604-8C15-0E59F2852F57}</Project>
       <Name>EphemeralCore</Name>
     </ProjectReference>

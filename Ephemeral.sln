@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ephemeral", "Ephemeral\Ephemeral.csproj", "{46784C55-9EE0-49DF-B1F3-132B17D07781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EphemeralCore", "Ephemeral.Core\EphemeralCore.csproj", "{5A312457-B3C0-4604-8C15-0E59F2852F57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EphemeralCore", "EphemeralCore\EphemeralCore.csproj", "{5A312457-B3C0-4604-8C15-0E59F2852F57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
