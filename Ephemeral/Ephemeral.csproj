@@ -133,7 +133,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Resources\GenI102.ttf" />
     <None Include="Resources\GenR102.ttf" />
   </ItemGroup>
