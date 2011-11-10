@@ -78,19 +78,7 @@
     <Compile Include="MouseHook.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceFontFamily.cs" />
-    <Compile Include="Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="ShellExecuteCommand.cs" />
-    <Compile Include="SmoothLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SmoothLabel.Designer.cs">
-      <DependentUpon>SmoothLabel.cs</DependentUpon>
-    </Compile>
     <Compile Include="WebSearchCommand.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,16 +97,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\GenI102.ttf" />
-    <None Include="Resources\GenR102.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
