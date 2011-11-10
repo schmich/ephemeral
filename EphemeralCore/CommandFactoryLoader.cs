@@ -40,7 +40,10 @@ namespace Ephemeral.Commands
         {
             List<CommandFactory> factories = new List<CommandFactory>();
 
-            foreach (string fileName in Directory.GetFiles(directory, "*.dll"))
+            var dllHost = Directory.GetFiles(directory, "*.dll");
+            var exeHost = Directory.GetFiles(directory, "*.exe");
+
+            foreach (string fileName in dllHost.Concat(exeHost))
             {
                 factories.AddRange(LoadFromFile(fileName, controller));
             }

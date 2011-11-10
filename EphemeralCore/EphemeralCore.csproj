@@ -73,16 +73,9 @@
     <Compile Include="Command.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="CommandFactoryLoader.cs" />
-    <Compile Include="ExitCommand.cs" />
     <Compile Include="FadeEffect.cs" />
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="MouseHook.cs" />
-    <Compile Include="NotificationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NotificationForm.Designer.cs">
-      <DependentUpon>NotificationForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Platform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceFontFamily.cs" />
@@ -118,10 +111,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="NotificationForm.resx">
-      <DependentUpon>NotificationForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
