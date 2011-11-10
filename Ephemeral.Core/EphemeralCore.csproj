@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Ephemeral</RootNamespace>
-    <AssemblyName>Ephemeral.Core</AssemblyName>
+    <AssemblyName>EphemeralCore</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -70,6 +70,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandFactory.cs" />
+    <Compile Include="CommandFactoryLoader.cs" />
+    <Compile Include="ExitCommand.cs" />
     <Compile Include="FadeEffect.cs" />
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="MouseHook.cs" />
@@ -87,12 +91,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ShellExecuteCommand.cs" />
     <Compile Include="SmoothLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmoothLabel.Designer.cs">
       <DependentUpon>SmoothLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="WebSearchCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
