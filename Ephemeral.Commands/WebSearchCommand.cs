@@ -13,17 +13,17 @@ namespace Ephemeral.Commands
     [Export]
     class WebSearchCommandFactory : CommandFactory
     {
-        public WebSearchCommandFactory(ICommandController controller)
-            : base(controller)
+        public WebSearchCommandFactory(ICommandManager manager)
+            : base(manager)
         {
-            controller.AddCommand(new WebSearchCommand("msdn", "http://msdn.microsoft.com/", "http://social.msdn.microsoft.com/Search/en-US?query=%s"));
-            controller.AddCommand(new WebSearchCommand("StackOverflow", "http://stackoverflow.com/", "http://www.google.com/#hl=en&q=%s+site%3Astackoverflow.com"));
-            controller.AddCommand(new WebSearchCommand("Wikipedia", "http://en.wikipedia.org/", "http://en.wikipedia.org/wiki/Special:Search/%s"));
-            controller.AddCommand(new WebSearchCommand("?", "http://bing.com/", "http://www.bing.com/search?q=%s"));
-            controller.AddCommand(new WebSearchCommand("bing", "http://bing.com/", "http://www.bing.com/search?q=%s"));
-            controller.AddCommand(new WebSearchCommand("AcronymFinder", "http://www.acronymfinder.com/", "http://www.acronymfinder.com/%s.html"));
-            controller.AddCommand(new WebSearchCommand("Microsoft Mail", "https://mail.microsoft.com", "https://mail.microsoft.com"));
-            controller.AddCommand(new WebSearchCommand("gmail", "https://gmail.com", "https://gmail.com"));
+            manager.AddCommand(new WebSearchCommand("msdn", "http://msdn.microsoft.com/", "http://social.msdn.microsoft.com/Search/en-US?query=%s"));
+            manager.AddCommand(new WebSearchCommand("StackOverflow", "http://stackoverflow.com/", "http://www.google.com/#hl=en&q=%s+site%3Astackoverflow.com"));
+            manager.AddCommand(new WebSearchCommand("Wikipedia", "http://en.wikipedia.org/", "http://en.wikipedia.org/wiki/Special:Search/%s"));
+            manager.AddCommand(new WebSearchCommand("?", "http://bing.com/", "http://www.bing.com/search?q=%s"));
+            manager.AddCommand(new WebSearchCommand("bing", "http://bing.com/", "http://www.bing.com/search?q=%s"));
+            manager.AddCommand(new WebSearchCommand("AcronymFinder", "http://www.acronymfinder.com/", "http://www.acronymfinder.com/%s.html"));
+            manager.AddCommand(new WebSearchCommand("Microsoft Mail", "https://mail.microsoft.com", "https://mail.microsoft.com"));
+            manager.AddCommand(new WebSearchCommand("gmail", "https://gmail.com", "https://gmail.com"));
         }
     }
 

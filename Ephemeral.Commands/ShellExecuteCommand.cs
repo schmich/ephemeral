@@ -13,11 +13,10 @@ namespace Ephemeral.Commands
     [Export]
     public class ShellExecuteCommandFactory : CommandFactory
     {
-        public ShellExecuteCommandFactory(ICommandController controller)
+        public ShellExecuteCommandFactory(ICommandManager controller)
             : base(controller)
         {
-
-            _controller = controller;
+            _manager = controller;
 
             AddDirectoryCommands(@"C:\dev\shortcuts");
             //AddDirectoryCommands(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
@@ -86,7 +85,7 @@ namespace Ephemeral.Commands
 
                     var command = new ShellExecuteCommand(commandName, fileName);
                     _commands[fileName] = command;
-                    _controller.AddCommand(command);
+                    _manager.AddCommand(command);
                 }
             }
         }
@@ -97,11 +96,11 @@ namespace Ephemeral.Commands
             if (_commands.TryGetValue(fileName, out command))
             {
                 _commands.Remove(fileName);
-                _controller.RemoveCommand(command);
+                _manager.RemoveCommand(command);
             }
         }
 
-        ICommandController _controller;
+        ICommandManager _manager;
         Dictionary<string, Command> _commands = new Dictionary<string, Command>(StringComparer.OrdinalIgnoreCase);
     }
 

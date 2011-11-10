@@ -20,7 +20,7 @@ namespace Ephemeral
         {
             InitializeComponent();
             Width = Screen.PrimaryScreen.Bounds.Width;
-            Font = new Font(Gentium.FontFamily, 30, FontStyle.Bold);
+            Font = new Font(Gentium.FontFamily, 30, FontStyle.Regular);
 
             DoubleBuffered = true;
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);

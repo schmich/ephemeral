@@ -15,7 +15,7 @@ namespace Ephemeral
         public NotificationForm(string text, TimeSpan minimumLifeTime)
         {
             InitializeComponent();
-            _container.Font = new Font(Gentium.FontFamily, 30, FontStyle.Bold);
+            _container.Font = new Font(Gentium.FontFamily, 30, FontStyle.Regular);
 
             Rectangle screen = Screen.GetWorkingArea(this);
             Top = (int)((screen.Height / 3f) - (Height / 2f));

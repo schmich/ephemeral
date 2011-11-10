@@ -9,7 +9,7 @@ namespace Ephemeral.Commands
 {
     public static class CommandFactoryLoader
     {
-        public static ICollection<CommandFactory> LoadFromAssembly(Assembly assembly, ICommandController controller)
+        public static ICollection<CommandFactory> LoadFromAssembly(Assembly assembly, ICommandManager controller)
         {
             List<CommandFactory> factories = new List<CommandFactory>();
 
@@ -36,7 +36,7 @@ namespace Ephemeral.Commands
             return factories;
         }
 
-        public static ICollection<CommandFactory> LoadFromDirectory(string directory, ICommandController controller)
+        public static ICollection<CommandFactory> LoadFromDirectory(string directory, ICommandManager controller)
         {
             List<CommandFactory> factories = new List<CommandFactory>();
 
@@ -48,7 +48,7 @@ namespace Ephemeral.Commands
             return factories;
         }
 
-        public static ICollection<CommandFactory> LoadFromFile(string fileName, ICommandController controller)
+        public static ICollection<CommandFactory> LoadFromFile(string fileName, ICommandManager controller)
         {
             string filePath = Path.GetFullPath(fileName);
             return LoadFromAssembly(Assembly.LoadFile(filePath), controller);

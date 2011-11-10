@@ -49,10 +49,10 @@ namespace Ephemeral
 
     class PatternCommandProvider : ICommandProvider
     {
-        public PatternCommandProvider(CommandControllerEvents controller)
+        public PatternCommandProvider(CommandManagerEvents manager)
         {
-            controller.CommandAdded += new Action<Command>(OnCommandAdded);
-            controller.CommandRemoved += new Action<Command>(OnCommandRemoved);
+            manager.CommandAdded += new Action<Command>(OnCommandAdded);
+            manager.CommandRemoved += new Action<Command>(OnCommandRemoved);
         }
 
         void OnCommandAdded(Command command)
@@ -84,12 +84,12 @@ namespace Ephemeral
         }
 
         Indexer _indexer = new Indexer();
-
+        
         string _lastInput = string.Empty;
         IEnumerable<Command> _lastAnswer = new Command[0];
     }
 
-    class CommandControllerEvents : ICommandController
+    class CommandManagerEvents : ICommandManager
     {
         public void AddCommand(Command c)
         {

@@ -9,12 +9,12 @@ namespace Ephemeral.Commands
 {
     public abstract class CommandFactory
     {
-        public CommandFactory(ICommandController controller)
+        public CommandFactory(ICommandManager manager)
         {
         }
     }
 
-    public interface ICommandController
+    public interface ICommandManager
     {
         void AddCommand(Command c);
         void RemoveCommand(Command c);
@@ -30,17 +30,17 @@ namespace Ephemeral.Commands
 
     public class SingleCommandFactory : CommandFactory
     {
-        public SingleCommandFactory(ICommandController controller, Command command)
-            : base(controller)
+        public SingleCommandFactory(ICommandManager manager, Command command)
+            : base(manager)
         {
-            controller.AddCommand(command);
+            manager.AddCommand(command);
         }
     }
 
     public class SingleCommandFactory<T> : SingleCommandFactory
         where T : Command, new()
     {
-        public SingleCommandFactory(ICommandController controller)
+        public SingleCommandFactory(ICommandManager controller)
             : base(controller, new T())
         {
         }

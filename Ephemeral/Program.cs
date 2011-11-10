@@ -29,7 +29,7 @@ namespace Ephemeral
 
                 EnsureCapsLockDisabled();
 
-                CommandControllerEvents controller = new CommandControllerEvents();
+                CommandManagerEvents controller = new CommandManagerEvents();
                 _commandProvider = new PatternCommandProvider(controller);
 
                 string thisDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
