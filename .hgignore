@@ -1,0 +1,21 @@
+syntax: glob
+
+# Ignore Unix hidden and VIM backup files.
+.*
+*~
+*.obj
+
+# Ignore VS user options file.
+*.suo
+*.csproj.user
+
+# Ignore any of the built files underneath bin or obj.
+bin\**
+obj\**
+
+# Ignore any Debug/Release output.
+*\Debug\**
+*\Release\**
+
+# Ignore VS browsing/IntelliSense database.
+*.sdf
