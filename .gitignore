@@ -1,0 +1,8 @@
+*.obj
+*.suo
+*.csproj.user
+bin\**
+obj\**
+*\Debug\**
+*\Release\**
+*.sdf
